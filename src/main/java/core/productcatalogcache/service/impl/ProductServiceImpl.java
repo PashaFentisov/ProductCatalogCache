@@ -32,7 +32,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional(readOnly = true)
-    public ProductResponseDto getCategory(Long id) {
+    public ProductResponseDto getProduct(Long id) {
         return productRepository.findById(id)
                 .map(productMapper::entityToResponseDto)
                 .orElseThrow(() -> new EntityNotFoundException(String.format(NOT_FOUND_EXCEPTION_MESSAGE, id)));

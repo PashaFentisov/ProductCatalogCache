@@ -23,6 +23,7 @@ import java.net.URI;
 @RequiredArgsConstructor
 @Slf4j
 public class ProductRestController {
+    public static final String PARAMETER_EXCEEDED_THE_LIMIT_MESSAGE = "Size parameter exceeded the limit: {}";
     private final ProductService productService;
 
     @GetMapping
@@ -30,6 +31,7 @@ public class ProductRestController {
                                                                 @RequestParam(required = false, defaultValue = "10") int size,
                                                                 @RequestParam(required = false, defaultValue = "id") String sort) {
         if (size > 100) {
+            log.error(PARAMETER_EXCEEDED_THE_LIMIT_MESSAGE, size);
             throw new BigSizeException("You can get maximum 100 products at one time");
         }
         Page<ProductResponseDto> products = productService.getProducts(PageRequest.of(page, size, Sort.by(sort)));
@@ -38,7 +40,8 @@ public class ProductRestController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ProductResponseDto> getProductById(@PathVariable Long id) {
-        return ResponseEntity.ok(productService.getCategory(id));
+        ProductResponseDto product = productService.getProduct(id);
+        return ResponseEntity.ok(product);
     }
 
 
@@ -48,11 +51,11 @@ public class ProductRestController {
                                                                           @RequestParam(required = false, defaultValue = "id") String sort,
                                                                           @PathVariable String category) {
         if (size > 100) {
+            log.error(PARAMETER_EXCEEDED_THE_LIMIT_MESSAGE, size);
             throw new BigSizeException("You can get maximum 100 products at one time");
         }
         Page<ProductResponseDto> products = productService.getProductsByCategory(
                 PageRequest.of(page, size, Sort.by(sort)), category);
-
         return ResponseEntity.ok(products);
     }
 

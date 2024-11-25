@@ -8,7 +8,7 @@ import org.springframework.data.domain.PageRequest;
 public interface ProductService {
     Page<ProductResponseDto> getProducts(PageRequest pageRequest);
 
-    ProductResponseDto getCategory(Long id);
+    ProductResponseDto getProduct(Long id);
 
     ProductResponseDto createNewProduct(ProductRequestDto productRequestDto);
 
