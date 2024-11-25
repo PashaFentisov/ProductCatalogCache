@@ -8,6 +8,8 @@ import core.productcatalogcache.mapper.ProductMapper;
 import core.productcatalogcache.repository.ProductRepository;
 import core.productcatalogcache.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -31,6 +33,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Cacheable(value = "products", key = "#id")
     @Transactional(readOnly = true)
     public ProductResponseDto getProduct(Long id) {
         return productRepository.findById(id)
@@ -46,6 +49,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @CacheEvict(value = "products", key = "#id")
     @Transactional
     public ProductResponseDto updateProduct(Long id, ProductRequestDto productRequestDto) {
         Product product = productRepository.findById(id)
@@ -60,6 +64,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Cacheable(value = "productsByCategory", key = "#category")
     @Transactional(readOnly = true)
     public Page<ProductResponseDto> getProductsByCategory(PageRequest pageRequest, String category) {
         return productRepository.findByCategory(category, pageRequest)
@@ -67,6 +72,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @CacheEvict(value = "products", key = "#id")
     @Transactional
     public void deleteProductById(Long id) {
         productRepository.deleteById(id);
