@@ -78,3 +78,6 @@ User role credentials:
 Cache analytics is implemented using Actuator and can be accessed at:
  - http://localhost:8080/actuator/metrics/cache.gets
  - http://localhost:8080/actuator/metrics/cache.gets?tag=result:hit
+
+### Swagger
+ - http://localhost:8080/swagger-ui/index.html
