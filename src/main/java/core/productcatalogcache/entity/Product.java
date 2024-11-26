@@ -46,13 +46,4 @@ public class Product {
     public int hashCode() {
         return Objects.hash(name, category);
     }
-
-    //- ID (Long)
-//- Name (String, not null)
-//- Description (String)
-//- Price (BigDecimal, not null)
-//- Category (String)
-//- Stock (Integer)
-//- Created Date (LocalDateTime)
-//- Last Updated Date (LocalDateTime)
 }

@@ -8,13 +8,19 @@ import org.springframework.cache.caffeine.CaffeineCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import static core.productcatalogcache.util.CacheNamesUtil.PRODUCT_BY_CATEGORY_CACHE;
+import static core.productcatalogcache.util.CacheNamesUtil.PRODUCT_BY_ID_CACHE;
+
 @EnableCaching
 @Configuration
 @Slf4j
 public class CacheConfig {
     @Bean
     public CacheManager cacheManager() {
-        CaffeineCacheManager cacheManager = new CaffeineCacheManager("productsByCategory", "products");
+        CaffeineCacheManager cacheManager = new CaffeineCacheManager(
+                PRODUCT_BY_CATEGORY_CACHE,
+                PRODUCT_BY_ID_CACHE);
+
         cacheManager.setCaffeine(
                 Caffeine.newBuilder()
                         .recordStats()
