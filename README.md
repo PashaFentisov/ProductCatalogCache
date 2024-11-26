@@ -81,3 +81,19 @@ Cache analytics is implemented using Actuator and can be accessed at:
 
 ### Swagger
  - http://localhost:8080/swagger-ui/index.html
+
+### Docker
+To build and run the Docker container for this application, follow these steps:
+
+1. **Build the Docker image**:
+    ```sh
+    docker build -t product-catalog-cache .
+    ```
+
+2. **Run the Docker container**:
+    ```sh
+    docker run -d -p 8080:8080 product-catalog-cache
+    ```
+
+3. **Access the application**:
+    Open your web browser and navigate to `http://localhost:8080` to access the application.
